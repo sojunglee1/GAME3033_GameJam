@@ -6,8 +6,7 @@ using UnityEngine.AI;
 public class EnemyController : MonoBehaviour
 {
     public Transform player;
-
-    private NavMeshAgent agent;
+    public NavMeshAgent agent;
 
     // Start is called before the first frame update
     void Start()
@@ -16,8 +15,9 @@ public class EnemyController : MonoBehaviour
     }
 
     // Update is called once per frame
-    void Update()
+    public void SetAgents()
     {
         agent.SetDestination(player.position);
+        agent.speed = 1f;
     }
 }

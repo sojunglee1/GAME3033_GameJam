@@ -29,10 +29,11 @@ public class PlayerController : MonoBehaviour
     void Update()
     {
         followTransform.transform.rotation *= Quaternion.AngleAxis(lookInput.x * aimSensitivity, Vector3.up);
-
         var angles = followTransform.transform.localEulerAngles;
+        angles.z = 0;
 
         //rotate the player to face where we are looking
+        transform.rotation = Quaternion.Euler(0, followTransform.transform.rotation.eulerAngles.y, 0);
         followTransform.transform.localEulerAngles = new Vector3(angles.x, 0, 0);
 
         if (isJumping) return;
