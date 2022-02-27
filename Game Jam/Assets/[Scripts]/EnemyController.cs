@@ -20,4 +20,14 @@ public class EnemyController : MonoBehaviour
         agent.SetDestination(player.position);
         agent.speed = 1f;
     }
+
+    public void RotateTowardsTarget()
+    {
+        if (agent.isStopped)
+        {
+            
+            transform.LookAt(player);
+            transform.eulerAngles = new Vector3 (0, transform.eulerAngles.y, transform.eulerAngles.z);
+        }
+    }
 }

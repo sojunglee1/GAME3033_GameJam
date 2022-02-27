@@ -5,17 +5,24 @@ using UnityEngine;
 public class ClownBehavior : EnemyController
 {
     public Animator animator;
-    public readonly int reset = Animator.StringToHash("ResetAnimation");
+    public readonly int isRunning = Animator.StringToHash("isRunning");
+    public readonly int isStanding = Animator.StringToHash("isStanding");
 
     public void Update()
     {
         SetAgents();
-        if (agent.remainingDistance < 5.0f)
+        RotateTowardsTarget();
+        if (agent.remainingDistance <= 10.0f)
         {
             agent.isStopped = true;
-            animator.SetTrigger(reset);
+            animator.SetBool(isRunning, false);
         }
-
+        else
+        {
+            agent.isStopped = false;
+            animator.SetBool(isRunning, true);
+        }
         
     }
+
 }
