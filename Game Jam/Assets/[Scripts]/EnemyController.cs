@@ -25,7 +25,6 @@ public class EnemyController : MonoBehaviour
     {
         if (agent.isStopped)
         {
-            
             transform.LookAt(player);
             transform.eulerAngles = new Vector3 (0, transform.eulerAngles.y, transform.eulerAngles.z);
         }
