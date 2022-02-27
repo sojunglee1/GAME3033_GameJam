@@ -9,7 +9,6 @@ public class PlayerController : MonoBehaviour
     public GameObject followTransform;
 
     [SerializeField] float walkSpeed = 5;
-    [SerializeField] float jumpForce = 5;
 
     Vector2 inputVector = Vector2.zero;
     Vector3 moveDirection = Vector3.zero;
@@ -18,7 +17,6 @@ public class PlayerController : MonoBehaviour
     public float aimSensitivity = 0.2f;
 
     bool isJumping = false;
-    bool isRunning = false;
 
     public AudioSource audioSource;
     public AudioClip footstepSounds;
@@ -54,22 +52,27 @@ public class PlayerController : MonoBehaviour
 
     public void OnMovement(InputValue value)
     {
-        inputVector = value.Get<Vector2>();
-    }
-
-    public void OnJump(InputValue value)
-    {
-        if (isJumping)
-        {
-            return;
-        }
-        isJumping = true;
-        GetComponent<Rigidbody>().AddForce((transform.up + moveDirection) * jumpForce, ForceMode.Impulse);
+        if (!GameManager.instance.isLetterShowing() && !GameManager.isGamePaused())
+            inputVector = value.Get<Vector2>();
+        else 
+            inputVector = Vector3.zero;
     }
 
     public void OnLook(InputValue value)
     {
-        lookInput = value.Get<Vector2>();
+        if (!GameManager.instance.isLetterShowing() && !GameManager.isGamePaused()) 
+            lookInput = value.Get<Vector2>();
+        else
+            lookInput = Vector3.zero;
+    }
+    public void OnCloseLetter()
+    {
+        GameManager.instance.CloseLetter();
+    }
+
+    public void OnPause()
+    {
+        GameManager.instance.Pause();
     }
 
     float time = 0;
