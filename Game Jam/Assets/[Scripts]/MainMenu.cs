@@ -13,8 +13,7 @@ public class MainMenu : MonoBehaviour
 
     public List<Button> ListOfButtons = new List<Button>();
 
-    public readonly int Fade = Animator.StringToHash("Fade");
-    public readonly int UnFade = Animator.StringToHash("UnFade");
+    private bool fadeMusic = false;
 
     private void Start()
     {
@@ -24,7 +23,7 @@ public class MainMenu : MonoBehaviour
 
     private void Update()
     {
-        StartCoroutine(StartMusic());
+        SetMusic(fadeMusic);
 
         foreach (Button buttonObject in ListOfButtons)
         {
@@ -67,7 +66,13 @@ public class MainMenu : MonoBehaviour
 
     public void GoToGame()
     {
+        fadeMusic = true;
         StartCoroutine(FadeToGame());
+    }
+
+    public void FadeMusic()
+    {
+        StartCoroutine(EndMusic());
     }
 
     IEnumerator PlayUnFadeAnimation()
@@ -78,7 +83,7 @@ public class MainMenu : MonoBehaviour
 
     IEnumerator FadeToGame()
     {
-        animator.Play("UnFadeAnimation");
+        animator.Play("FadeAnimation");
         yield return new WaitForSeconds(1.25f);
         SceneManager.LoadScene("Game");
     }
@@ -90,6 +95,42 @@ public class MainMenu : MonoBehaviour
         {
             audioSource.volume += Time.deltaTime * 0.25f;
         }
+    }
+
+    IEnumerator EndMusic()
+    {
+        yield return null;
+        if (audioSource.volume > 0.0f)
+        {
+            audioSource.volume += Time.deltaTime * -1.0f;
+        }
+    }
+
+    public void SetMusic(bool fade)
+    {
+        if (fade)
+        {
+            StartCoroutine(EndMusic());
+        }
+        else StartCoroutine(StartMusic());
+    }
+
+    public void QuitGame()
+    {
+        StartCoroutine(Quit());
+    }
+
+    public IEnumerator Quit()
+    {
+        animator.Play("FadeAnimation");
+        yield return new WaitForSeconds(1.25f);
+
+#if UNITY_STANDALONE
+        Application.Quit();
+#endif
+#if UNITY_EDITOR
+        UnityEditor.EditorApplication.isPlaying = false;
+#endif
     }
 }
 

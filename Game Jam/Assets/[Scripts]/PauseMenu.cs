@@ -18,8 +18,7 @@ public class PauseMenu : MonoBehaviour
 
     public void GoToMainMenu()
     {
-        GameManager.instance.FadeOverlay.GetComponent<Image>().enabled = true;
-        GameManager.instance.FadeOverlay.GetComponent<Image>().color = new Color(0, 0, 0, 1);
+        Time.timeScale = 1;
         GameManager.instance.GoToMainMenu();
     }
 

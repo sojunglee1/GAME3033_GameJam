@@ -133,7 +133,6 @@ GameObject:
   m_Component:
   - component: {fileID: 59385438}
   - component: {fileID: 59385437}
-  - component: {fileID: 59385440}
   - component: {fileID: 59385439}
   m_Layer: 0
   m_Name: Manager
@@ -156,6 +155,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   FadeOverlay: {fileID: 1957749615}
   animator: {fileID: 1957749617}
+  audioSource: {fileID: 59385439}
   ListOfButtons:
   - buttonObject: {fileID: 5430173842608177404}
     defaultMaterial: {fileID: 2100000, guid: 9b16f1122df8b1b4aa78a79b83963213, type: 2}
@@ -182,19 +182,7 @@ MonoBehaviour:
     hoverMaterial: {fileID: 2100000, guid: 7a86bb10eb9c55c41a0759b94a496626, type: 2}
     customEvent:
       m_PersistentCalls:
-        m_Calls:
-        - m_Target: {fileID: 59385437}
-          m_TargetAssemblyTypeName: MainMenu, Assembly-CSharp
-          m_MethodName: GoToGame
-          m_Mode: 1
-          m_Arguments:
-            m_ObjectArgument: {fileID: 0}
-            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-            m_IntArgument: 0
-            m_FloatArgument: 0
-            m_StringArgument: 
-            m_BoolArgument: 0
-          m_CallState: 2
+        m_Calls: []
   - buttonObject: {fileID: 5430173841410711220}
     defaultMaterial: {fileID: 2100000, guid: 9b16f1122df8b1b4aa78a79b83963213, type: 2}
     clickedMaterial: {fileID: 2100000, guid: f5f613f2eb4803040ba82bcb514061c5, type: 2}
@@ -204,7 +192,7 @@ MonoBehaviour:
         m_Calls:
         - m_Target: {fileID: 59385437}
           m_TargetAssemblyTypeName: MainMenu, Assembly-CSharp
-          m_MethodName: GoToGame
+          m_MethodName: QuitGame
           m_Mode: 1
           m_Arguments:
             m_ObjectArgument: {fileID: 0}
@@ -324,19 +312,6 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
---- !u!114 &59385440
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 59385436}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 742ab02ddb2edab438b034bed423cc84, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  audioSource: {fileID: 59385439}
 --- !u!1 &222162439
 GameObject:
   m_ObjectHideFlags: 0
@@ -1109,9 +1084,37 @@ PrefabInstance:
     m_TransformParent: {fileID: 0}
     m_Modifications:
     - target: {fileID: 80062386912688592, guid: a09810ee65b3d8e4db3a553321531b4d, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.size
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 80062386912688592, guid: a09810ee65b3d8e4db3a553321531b4d, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_Mode
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 80062386912688592, guid: a09810ee65b3d8e4db3a553321531b4d, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
       objectReference: {fileID: 59385437}
+    - target: {fileID: 80062386912688592, guid: a09810ee65b3d8e4db3a553321531b4d, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_Target
+      value: 
+      objectReference: {fileID: 59385437}
+    - target: {fileID: 80062386912688592, guid: a09810ee65b3d8e4db3a553321531b4d, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_CallState
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 80062386912688592, guid: a09810ee65b3d8e4db3a553321531b4d, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_MethodName
+      value: FadeMusic
+      objectReference: {fileID: 0}
+    - target: {fileID: 80062386912688592, guid: a09810ee65b3d8e4db3a553321531b4d, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_TargetAssemblyTypeName
+      value: MainMenu, Assembly-CSharp
+      objectReference: {fileID: 0}
+    - target: {fileID: 80062386912688592, guid: a09810ee65b3d8e4db3a553321531b4d, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_Arguments.m_ObjectArgumentAssemblyTypeName
+      value: UnityEngine.Object, UnityEngine
+      objectReference: {fileID: 0}
     - target: {fileID: 5430173840790583640, guid: a09810ee65b3d8e4db3a553321531b4d, type: 3}
       propertyPath: m_Materials.Array.data[0]
       value: 
@@ -2075,10 +2078,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 828476433}
     m_Modifications:
-    - target: {fileID: 1392179469061143752, guid: 1fe63c25fdf581443a40bf20df945157, type: 3}
-      propertyPath: m_Enabled
-      value: 0
-      objectReference: {fileID: 0}
     - target: {fileID: 1392179469061143753, guid: 1fe63c25fdf581443a40bf20df945157, type: 3}
       propertyPath: m_Pivot.x
       value: 0.5
@@ -2163,10 +2162,6 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 1392179469061143754, guid: 1fe63c25fdf581443a40bf20df945157, type: 3}
-      propertyPath: m_Enabled
-      value: 1
-      objectReference: {fileID: 0}
     - target: {fileID: 1392179469061143766, guid: 1fe63c25fdf581443a40bf20df945157, type: 3}
       propertyPath: m_Name
       value: FadeOverlay
@@ -2201,6 +2196,10 @@ PrefabInstance:
       propertyPath: m_Materials.Array.data[0]
       value: 
       objectReference: {fileID: 2100000, guid: f5f613f2eb4803040ba82bcb514061c5, type: 2}
+    - target: {fileID: 3574615761044473284, guid: 33a540e0a1891bd469f0a19bb1560428, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.size
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 3574615761044473284, guid: 33a540e0a1891bd469f0a19bb1560428, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
@@ -2443,9 +2442,33 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 2100000, guid: 7a86bb10eb9c55c41a0759b94a496626, type: 2}
     - target: {fileID: 7921119901873917224, guid: d1bc68350e2ac7e4aa1cc893901bf501, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.size
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7921119901873917224, guid: d1bc68350e2ac7e4aa1cc893901bf501, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7921119901873917224, guid: d1bc68350e2ac7e4aa1cc893901bf501, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
       objectReference: {fileID: 59385437}
+    - target: {fileID: 7921119901873917224, guid: d1bc68350e2ac7e4aa1cc893901bf501, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_CallState
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 7921119901873917224, guid: d1bc68350e2ac7e4aa1cc893901bf501, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: FadeMusic
+      objectReference: {fileID: 0}
+    - target: {fileID: 7921119901873917224, guid: d1bc68350e2ac7e4aa1cc893901bf501, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
+      value: MainMenu, Assembly-CSharp
+      objectReference: {fileID: 0}
+    - target: {fileID: 7921119901873917224, guid: d1bc68350e2ac7e4aa1cc893901bf501, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
+      value: UnityEngine.Object, UnityEngine
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: d1bc68350e2ac7e4aa1cc893901bf501, type: 3}
 --- !u!1001 &4940284840687334581
