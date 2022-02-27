@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class ClownBehavior : EnemyController
+public class CrawlerBehavior : EnemyController
 {
     public Animator animator;
     public readonly int isRunning = Animator.StringToHash("isRunning");
@@ -11,7 +11,7 @@ public class ClownBehavior : EnemyController
     {
         SetAgents();
         RotateTowardsTarget();
-        if (agent.remainingDistance <= 10.0f)
+        if (agent.remainingDistance <= 5.0f)
         {
             agent.isStopped = true;
             animator.SetBool(isRunning, false);
@@ -22,5 +22,4 @@ public class ClownBehavior : EnemyController
             animator.SetBool(isRunning, true);
         }
     }
-
 }

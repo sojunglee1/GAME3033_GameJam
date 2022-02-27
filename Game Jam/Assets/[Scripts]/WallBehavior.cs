@@ -30,7 +30,6 @@ public class WallBehavior : MonoBehaviour
     {
         if (other.gameObject.CompareTag("Player"))
         {
-            print("Hello");
             canMove = true;
         }
     }
