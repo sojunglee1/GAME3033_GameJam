@@ -20,9 +20,13 @@ public class PlayerController : MonoBehaviour
     bool isJumping = false;
     bool isRunning = false;
 
+    public AudioSource audioSource;
+    public AudioClip footstepSounds;
+
     void Start()
     {
         rigidBody = GetComponent<Rigidbody>();
+        audioSource = GetComponent<AudioSource>();
     }
 
     // Update is called once per frame
@@ -45,16 +49,14 @@ public class PlayerController : MonoBehaviour
 
         transform.position += movementDirection;
 
+        if (movementDirection.magnitude > 0) PlayFootstepSounds();
     }
 
     public void OnMovement(InputValue value)
     {
         inputVector = value.Get<Vector2>();
     }
-    public void OnRun(InputValue value)
-    {
-        isRunning = value.isPressed;
-    }
+
     public void OnJump(InputValue value)
     {
         if (isJumping)
@@ -68,5 +70,21 @@ public class PlayerController : MonoBehaviour
     public void OnLook(InputValue value)
     {
         lookInput = value.Get<Vector2>();
+    }
+
+    float time = 0;
+    public void PlayFootstepSounds()
+    {
+        audioSource.volume = 0.5f;
+        if (time < 0.5f)
+        {
+            time += Time.deltaTime;
+        }
+        else
+        {
+
+            audioSource.Play();
+            time = 0;
+        }
     }
 }
