@@ -52,6 +52,7 @@ public class MainMenu : MonoBehaviour
 
     public void SetHoverMaterial(GameObject buttonObject, Material defaultMaterial, Material hoveredMaterial)
     {
+
         Ray ray = Camera.main.ScreenPointToRay(Mouse.current.position.ReadValue());
         RaycastHit hit;
         if (Physics.Raycast(ray, out hit) && hit.collider.gameObject.Equals(buttonObject.gameObject))

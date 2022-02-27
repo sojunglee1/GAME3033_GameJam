@@ -91,4 +91,13 @@ public class PlayerController : MonoBehaviour
         }
     }
 
+    private void OnTriggerEnter(Collider other)
+    {
+        if(other.gameObject.CompareTag("Finish"))
+        {
+            GameManager.instance.EndingLetter.SetActive(true);
+            GameManager.instance.EndingLetter.GetComponent<Animator>().Play("OpenLetter");
+        }
+    }
+
 }

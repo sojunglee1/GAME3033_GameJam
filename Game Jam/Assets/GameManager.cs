@@ -7,7 +7,8 @@ using TMPro;
 public class GameManager : MonoBehaviour
 {
     public static GameManager instance;
-    public GameObject letter;
+    public GameObject StartingLetter;
+    public GameObject EndingLetter;
     public GameObject PauseMenu;
 
     public GameObject FadeOverlay;
@@ -27,7 +28,7 @@ public class GameManager : MonoBehaviour
         StartCoroutine(PlayUnFadeAnimation());
         audioSource.volume = 0;
 
-        letter.GetComponent<Animator>().Play("OpenLetter");
+        StartingLetter.GetComponent<Animator>().Play("OpenLetter");
 
     }
 
@@ -82,13 +83,23 @@ public class GameManager : MonoBehaviour
 
     public bool isLetterShowing()
     {
-        return letter.gameObject.activeSelf;
+        return StartingLetter.gameObject.activeSelf || EndingLetter.gameObject.activeSelf;
     }
 
     public void CloseLetter()
     {
-        letter.GetComponent<Animator>().Play("CloseLetter");
-        letter.gameObject.SetActive(false);
+        if (StartingLetter.gameObject.activeSelf)
+        {
+            StartingLetter.GetComponent<Animator>().Play("CloseLetter");
+            StartingLetter.gameObject.SetActive(false);
+        }
+        else if (EndingLetter.gameObject.activeSelf)
+        {
+            //EndingLetter.GetComponent<Animator>().Play("CloseLetter");
+            //EndingLetter.gameObject.SetActive(false);
+
+            GoToMainMenu();
+        }
     }
 
     public void Pause()
