@@ -8,8 +8,17 @@ using UnityEngine.InputSystem;
 public class MainMenu : MonoBehaviour
 {
     public GameObject FadeOverlay;
+    public Animator animator;
 
     public List<Button> ListOfButtons = new List<Button>();
+
+    public readonly int Fade = Animator.StringToHash("Fade");
+    public readonly int UnFade = Animator.StringToHash("UnFade");
+
+    private void Start()
+    {
+        StartCoroutine(PlayUnFadeAnimation());
+    }
 
     private void Update()
     {
@@ -54,13 +63,18 @@ public class MainMenu : MonoBehaviour
 
     public void GoToGame()
     {
-        StartCoroutine(PlayFadeAnimation());
-        
+        StartCoroutine(FadeToGame());
     }
 
-    IEnumerator PlayFadeAnimation()
+    IEnumerator PlayUnFadeAnimation()
     {
-        FadeOverlay.GetComponent<Animator>().enabled = true;
+        animator.Play("UnFadeAnimation");
+        yield return new WaitForSeconds(1.25f);
+    }
+
+    IEnumerator FadeToGame()
+    {
+        animator.Play("UnFadeAnimation");
         yield return new WaitForSeconds(1.25f);
         SceneManager.LoadScene("Game");
     }
