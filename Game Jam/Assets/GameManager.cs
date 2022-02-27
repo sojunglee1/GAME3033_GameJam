@@ -10,13 +10,13 @@ public class GameManager : MonoBehaviour
     public GameObject StartingLetter;
     public GameObject EndingLetter;
     public GameObject PauseMenu;
+    public GameObject DeathMenu;
 
     public GameObject FadeOverlay;
     public Animator animator;
     public AudioSource audioSource;
 
-    public readonly int Fade = Animator.StringToHash("Fade");
-    public readonly int UnFade = Animator.StringToHash("UnFade");
+    public bool PlayerDied = false;
 
     private void Awake()
     {
@@ -35,10 +35,14 @@ public class GameManager : MonoBehaviour
     private void Update()
     {
         StartCoroutine(StartMusic());
+
+        if (PlayerDied) ShowDeathMenu();
     }
 
     public void GoToGame()
     {
+        PlayerDied = false;
+        print("restarting game");
         StartCoroutine(PlayFadeAnimation("Game"));
     }
 
@@ -69,6 +73,12 @@ public class GameManager : MonoBehaviour
         }
     }
 
+    public void Pause()
+    {
+        PauseMenu.SetActive(!PauseMenu.activeSelf);
+        SetPause(PauseMenu.activeSelf);
+    }
+
     public static void SetPause(bool pause)
     {
         if (pause) Time.timeScale = 0;
@@ -95,16 +105,18 @@ public class GameManager : MonoBehaviour
         }
         else if (EndingLetter.gameObject.activeSelf)
         {
-            //EndingLetter.GetComponent<Animator>().Play("CloseLetter");
-            //EndingLetter.gameObject.SetActive(false);
-
             GoToMainMenu();
         }
     }
 
-    public void Pause()
+    public void ShowDeathMenu()
     {
-        PauseMenu.SetActive(!PauseMenu.activeSelf);
-        SetPause(PauseMenu.activeSelf);
+        DeathMenu.SetActive(true);
+        DeathMenu.GetComponent<Animator>().Play("OpenDeathMenu");
+    }
+
+    public void SetPlayerDeathFlag(bool died)
+    {
+        PlayerDied = died;
     }
 }

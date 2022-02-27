@@ -9,18 +9,27 @@ public class ClownBehavior : EnemyController
 
     public void Update()
     {
-        SetAgents();
-        RotateTowardsTarget();
-        if (agent.remainingDistance <= 10.0f)
+        if (GameManager.instance.isLetterShowing() || GameManager.isGamePaused())
         {
-            agent.isStopped = true;
             animator.SetBool(isRunning, false);
+            return;
         }
-        else if (inBoundingBox())
+        else
         {
-            agent.isStopped = false;
-            animator.SetBool(isRunning, true);
+            SetAgents();
+            RotateTowardsTarget();
+
+            if (agent.remainingDistance <= 5.0f && agent.hasPath)
+            {
+                GameManager.instance.PlayerDied = true;
+                agent.isStopped = true;
+                animator.SetBool(isRunning, false);
+            }
+            else if (inBoundingBox())
+            {
+                agent.isStopped = false;
+                animator.SetBool(isRunning, true);
+            }
         }
     }
-
 }
