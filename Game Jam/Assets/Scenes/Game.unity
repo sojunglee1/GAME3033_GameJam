@@ -8459,11 +8459,11 @@ Light:
   serializedVersion: 10
   m_Type: 0
   m_Shape: 0
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_Color: {r: 1, g: 0.9351001, b: 0.6273585, a: 1}
   m_Intensity: 51.62
-  m_Range: 10
-  m_SpotAngle: 85.45014
-  m_InnerSpotAngle: 0
+  m_Range: 15
+  m_SpotAngle: 84.05116
+  m_InnerSpotAngle: 52.20827
   m_CookieSize: 10
   m_Shadows:
     m_Type: 0
