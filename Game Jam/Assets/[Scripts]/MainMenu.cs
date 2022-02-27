@@ -9,6 +9,7 @@ public class MainMenu : MonoBehaviour
 {
     public GameObject FadeOverlay;
     public Animator animator;
+    public AudioSource audioSource;
 
     public List<Button> ListOfButtons = new List<Button>();
 
@@ -18,10 +19,13 @@ public class MainMenu : MonoBehaviour
     private void Start()
     {
         StartCoroutine(PlayUnFadeAnimation());
+        audioSource.volume = 0;
     }
 
     private void Update()
     {
+        StartCoroutine(StartMusic());
+
         foreach (Button buttonObject in ListOfButtons)
         {
             SetHoverMaterial(buttonObject.buttonObject, buttonObject.defaultMaterial, buttonObject.hoverMaterial);
@@ -77,6 +81,15 @@ public class MainMenu : MonoBehaviour
         animator.Play("UnFadeAnimation");
         yield return new WaitForSeconds(1.25f);
         SceneManager.LoadScene("Game");
+    }
+
+    IEnumerator StartMusic()
+    {
+        yield return new WaitForSeconds(1f);
+        if (audioSource.volume < 1.0f)
+        {
+            audioSource.volume += Time.deltaTime * 0.25f;
+        }
     }
 }
 
