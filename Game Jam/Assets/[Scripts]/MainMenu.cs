@@ -4,16 +4,28 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.Events;
 using UnityEngine.InputSystem;
+using UnityEngine.EventSystems;
 
 public class MainMenu : MonoBehaviour
 {
+    public static MainMenu menu; 
+
     public GameObject FadeOverlay;
     public Animator animator;
     public AudioSource audioSource;
 
+    public AudioSource buttonClick;
+    public AudioClip menuClick;
+    public AudioClip submitClick;
+
     public List<Button> ListOfButtons = new List<Button>();
 
     private bool fadeMusic = false;
+
+    private void Awake()
+    {
+        menu = this;
+    }
 
     private void Start()
     {
@@ -35,8 +47,9 @@ public class MainMenu : MonoBehaviour
             {
                 if (Physics.Raycast(ray, out hit) && hit.collider.gameObject.Equals(buttonObject.buttonObject.gameObject))
                 {
-                    buttonObject.customEvent.Invoke();
+                    buttonClick.PlayOneShot(submitClick);
                     SetMaterial(buttonObject.buttonObject, buttonObject.clickedMaterial);
+                    buttonObject.customEvent.Invoke();
                 }
             }
         }
