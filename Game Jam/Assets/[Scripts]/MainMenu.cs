@@ -4,7 +4,6 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.Events;
 using UnityEngine.InputSystem;
-using UnityEngine.EventSystems;
 
 public class MainMenu : MonoBehaviour
 {

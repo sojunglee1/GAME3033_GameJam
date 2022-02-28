@@ -6,9 +6,9 @@ public class CrawlerBehavior : EnemyController
 {
     private void OnBecameVisible()
     {
-        if (!GameManager.instance.isLetterShowing() && !GameManager.isGamePaused() && !GameManager.instance.PlayerDied)
+        if ((GameManager.instance.isLetterShowing() && GameManager.isGamePaused() && GameManager.instance.PlayerDied).Equals(false) &&
+    agent.remainingDistance <= 10.0f)
         {
-            jumpScare.volume = 1.0f;
             jumpScare.Play();
         }
     }
@@ -25,9 +25,9 @@ public class CrawlerBehavior : EnemyController
             SetAgents();
             RotateTowardsTarget();
 
-            if (agent.remainingDistance <= 5.0f && agent.hasPath)
+            if (agent.remainingDistance <= 5.0f && agent.remainingDistance > 1.0f)
             {
-                
+                print(agent.remainingDistance);
                 StopRunning();
                 GameManager.instance.PlayerDied = true;
                 return;

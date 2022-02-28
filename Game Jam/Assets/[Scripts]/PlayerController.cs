@@ -50,7 +50,7 @@ public class PlayerController : MonoBehaviour
 
         if (movementDirection.magnitude > 0) PlayFootstepSounds();
 
-        if (isSquished()) GameManager.instance.PlayerDied = true;
+        //if (isSquished()) GameManager.instance.PlayerDied = true;
     }
 
     public void OnMovement(InputValue value)

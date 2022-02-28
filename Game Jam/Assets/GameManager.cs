@@ -133,8 +133,8 @@ public class GameManager : MonoBehaviour
         DeathMenu.GetComponent<Animator>().Play("OpenDeathMenu");
     }
 
-    public void ResetDeath(bool died)
+    public void ResetDeath()
     {
-        PlayerDied = died;
+        PlayerDied = false ;
     }
 }
