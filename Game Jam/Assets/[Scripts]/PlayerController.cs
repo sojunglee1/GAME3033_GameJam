@@ -30,11 +30,12 @@ public class PlayerController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        
+
         followTransform.transform.rotation *= Quaternion.AngleAxis(lookInput.x * aimSensitivity, Vector3.up);
         var angles = followTransform.transform.localEulerAngles;
         angles.z = 0;
 
-        //rotate the player to face where we are looking
         transform.rotation = Quaternion.Euler(0, followTransform.transform.rotation.eulerAngles.y, 0);
         followTransform.transform.localEulerAngles = new Vector3(angles.x, 0, 0);
 
@@ -48,11 +49,13 @@ public class PlayerController : MonoBehaviour
         transform.position += movementDirection;
 
         if (movementDirection.magnitude > 0) PlayFootstepSounds();
+
+        if (isSquished()) GameManager.instance.PlayerDied = true;
     }
 
     public void OnMovement(InputValue value)
     {
-        if (!GameManager.instance.isLetterShowing() && !GameManager.isGamePaused())
+        if (!GameManager.instance.isLetterShowing() && !GameManager.isGamePaused() && !GameManager.instance.PlayerDied)
             inputVector = value.Get<Vector2>();
         else 
             inputVector = Vector3.zero;
@@ -60,7 +63,7 @@ public class PlayerController : MonoBehaviour
 
     public void OnLook(InputValue value)
     {
-        if (!GameManager.instance.isLetterShowing() && !GameManager.isGamePaused()) 
+        if (!GameManager.instance.isLetterShowing() && !GameManager.isGamePaused() && !GameManager.instance.PlayerDied)
             lookInput = value.Get<Vector2>();
         else
             lookInput = Vector3.zero;
@@ -100,4 +103,29 @@ public class PlayerController : MonoBehaviour
         }
     }
 
+    private bool isSquished()
+    {
+        Ray frontRay = new Ray(transform.position, Vector3.forward);
+        Ray backRay = new Ray(transform.position, -Vector3.forward);
+        Ray leftRay = new Ray(transform.position, -Vector3.right);
+        Ray rightRay = new Ray(transform.position, Vector3.right);
+
+        //Debug.DrawRay(frontRay.origin, frontRay.direction * 0.5f);
+        //Debug.DrawRay(backRay.origin, backRay.direction * 0.5f);
+        //Debug.DrawRay(leftRay.origin, leftRay.direction * 0.5f);
+        //Debug.DrawRay(rightRay.origin, rightRay.direction * 0.5f);
+
+        RaycastHit hitData;
+
+        bool forward = false, backwards = false, left = false, right = false;
+
+        forward = Physics.Raycast(frontRay, out hitData, 0.5f) && hitData.collider.CompareTag("Wall");
+        backwards = Physics.Raycast(backRay, out hitData, 0.5f) && hitData.collider.CompareTag("Wall");
+        left = Physics.Raycast(leftRay, out hitData, 0.5f) && hitData.collider.CompareTag("Wall");
+        right = Physics.Raycast(rightRay, out hitData, 0.5f) && hitData.collider.CompareTag("Wall");
+
+        if (forward && backwards || left && right) return true;
+        else return false;
+
+    }
 }

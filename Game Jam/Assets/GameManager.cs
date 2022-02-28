@@ -36,7 +36,10 @@ public class GameManager : MonoBehaviour
     {
         StartCoroutine(StartMusic());
 
-        if (PlayerDied) ShowDeathMenu();
+        if (PlayerDied)
+        {
+            ShowDeathMenu();
+        }
     }
 
     public void GoToGame()
@@ -72,6 +75,20 @@ public class GameManager : MonoBehaviour
             audioSource.volume += Time.deltaTime * 0.25f;
         }
     }
+
+    IEnumerator EndMusic()
+    {
+        yield return null;
+        if (audioSource.volume > 0.0f)
+        {
+            audioSource.volume += Time.deltaTime * -1.0f;
+        }
+    }
+    public void FadeMusic()
+    {
+        StartCoroutine(EndMusic());
+    }
+
 
     public void Pause()
     {
@@ -111,11 +128,12 @@ public class GameManager : MonoBehaviour
 
     public void ShowDeathMenu()
     {
+        FadeMusic();
         DeathMenu.SetActive(true);
         DeathMenu.GetComponent<Animator>().Play("OpenDeathMenu");
     }
 
-    public void SetPlayerDeathFlag(bool died)
+    public void ResetDeath(bool died)
     {
         PlayerDied = died;
     }

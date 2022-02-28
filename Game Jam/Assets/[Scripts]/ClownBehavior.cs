@@ -4,15 +4,20 @@ using UnityEngine;
 
 public class ClownBehavior : EnemyController
 {
-    public Animator animator;
-    public readonly int isRunning = Animator.StringToHash("isRunning");
+    private void OnBecameVisible()
+    {
+        if (!GameManager.instance.isLetterShowing() && !GameManager.isGamePaused() && !GameManager.instance.PlayerDied)
+        {
+            jumpScare.Play();
+        }
+    }
 
     public void Update()
     {
-        if (GameManager.instance.isLetterShowing() || GameManager.isGamePaused())
+        if (GameManager.instance.isLetterShowing() || GameManager.isGamePaused() || GameManager.instance.PlayerDied)
         {
-            animator.SetBool(isRunning, false);
-            return;
+            StopRunning();
+            SFX.Stop();
         }
         else
         {
@@ -21,15 +26,13 @@ public class ClownBehavior : EnemyController
 
             if (agent.remainingDistance <= 5.0f && agent.hasPath)
             {
+                StopRunning();
                 GameManager.instance.PlayerDied = true;
-                agent.isStopped = true;
-                animator.SetBool(isRunning, false);
+                return;
             }
-            else if (inBoundingBox())
-            {
-                agent.isStopped = false;
-                animator.SetBool(isRunning, true);
-            }
+            else StartRunning();
         }
+
+
     }
 }
